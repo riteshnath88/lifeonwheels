@@ -1,0 +1,22 @@
+{
+  "name": "lifeonwheels",
+  "version": "1.0.0",
+  "description": "Tours and travel website built on nodejs platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riteshnath88/lifeonwheels.git"
+  },
+  "author": "Ritesh Nath",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riteshnath88/lifeonwheels/issues"
+  },
+  "homepage": "https://github.com/riteshnath88/lifeonwheels#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
