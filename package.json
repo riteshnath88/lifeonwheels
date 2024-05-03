@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/riteshnath88/lifeonwheels#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mongoose": "^8.3.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
