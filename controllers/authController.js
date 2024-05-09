@@ -68,9 +68,47 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // 2) Verification of the token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
+
   // 3) Check if the user still exists
+  const freshUser = await User.findById(decoded.id);
+  if (!freshUser) {
+    return next(
+      new AppError('The user belonging to this token no longer exist.')
+    );
+  }
 
   // 4) Check if user changed password after the token was issued.
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently canged password! Please log in again.', 401)
+    );
+  }
+
+  // Grant access to protected route
+  req.user = freshUser;
+
   next();
+});
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ['admin', 'lead-guide']
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+    next();
+  };
+};
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on POSTED email
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new AppError('There is no user with email address.', 404));
+  }
+  // 2) Generate the random reset token
+
+  // 3) Send it to user's email
 });
