@@ -115,6 +115,13 @@ tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// Virtually populating the reviews for a tour as in this case there is child referencing
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+
 // DOCUMENT MIDDLEWARE
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
