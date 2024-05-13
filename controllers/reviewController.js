@@ -29,3 +29,34 @@ exports.createReview = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.getReview = catchAsync(async (req, res, next) => {
+  const review = await Review.create(req.params.id);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      review,
+    },
+  });
+});
+
+exports.updateReview = catchAsync(async (req, res, next) => {
+  const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      updatedReview,
+    },
+  });
+});
+
+exports.deleteReview = catchAsync(async (req, res, next) => {
+  await Review.findByIdAndDelete(req.params.id);
+
+  res.status(201).json({
+    status: 'success',
+    data: null,
+  });
+});

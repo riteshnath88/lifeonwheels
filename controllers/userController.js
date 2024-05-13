@@ -20,11 +20,17 @@ exports.getAllUsers = catchAsync(async (req, res) => {
     data: users,
   });
 });
-exports.getUser = (req, res) => {
+exports.getUser = catchAsync(async (req, res) => {
+  console.log(req.params.id);
+  const currentUser = await User.findById(req.params.id);
   res.status(200).json({
-    message: 'GET single record API endpoint',
+    status: 'success',
+    data: {
+      currentUser,
+    },
   });
-};
+});
+
 exports.createUser = (req, res) => {
   res.status(200).json({
     message: 'POST API endpoint',
@@ -39,6 +45,11 @@ exports.deleteUser = (req, res) => {
   res.status(200).json({
     message: 'DELETE API endpoint',
   });
+};
+
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
