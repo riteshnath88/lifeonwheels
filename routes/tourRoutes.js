@@ -42,7 +42,7 @@ router
   .route('/:tourId/reviews')
   .post(
     authController.protect,
-    authController.restrictTo('user'),
+    authController.restrictTo('user', 'admin'),
     reviewController.createReview
   );
 

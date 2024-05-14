@@ -22,7 +22,13 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP. Please tyr again in an hour!',
 });
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
+
 app.use('/api', limiter);
 app.use(mongoSanitize());
 app.use(xss());
