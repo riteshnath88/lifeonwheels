@@ -10,7 +10,9 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+
 const app = express();
+app.set('view engine', 'pug');
 
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
